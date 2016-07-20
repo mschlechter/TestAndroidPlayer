@@ -2,6 +2,7 @@ package com.example.autotaal.testandroidplayer;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.PowerManager;
@@ -13,8 +14,10 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -70,22 +73,34 @@ createViews();
             myVideoView.start();
 
             //
-            // Add ticker tape
+            // Add transparent panel
+            //
+
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(1920, 80);
+
+            RelativeLayout tickerPanel = new RelativeLayout(this);
+            tickerPanel.setLayoutParams(layoutParams);
+            tickerPanel.setX(0);
+            tickerPanel.setY(1000);
+            tickerPanel.setBackgroundColor(Color.WHITE);
+            tickerPanel.setAlpha(0.5f);
+
+
+            mainFrameLayout.addView(tickerPanel);
+
+
+
+            //
+            // Add ticker tape text
             //
 
             TextView text = new TextView(this);
             mainFrameLayout.addView(text);
 
             text.setText("Dit is een testbericht voor een tickertape in Android");
-
-            /*
-            text.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-            text.setMarqueeRepeatLimit(-1);
-            text.setSingleLine(true);
-            text.setHorizontallyScrolling(true);
-            */
-
-            //text.animate().x(1920).y(0);
+            text.setY(1000);
+            text.setTextColor(Color.BLACK);
+            text.setTextSize(18);
 
             float textWidth = 0;
 
@@ -97,6 +112,7 @@ createViews();
             animation.setDuration(20000);
             animation.setRepeatMode(Animation.RESTART);
             animation.setRepeatCount(Animation.INFINITE);
+            animation.setInterpolator(new LinearInterpolator());
 
             text.setAnimation(animation);
 
