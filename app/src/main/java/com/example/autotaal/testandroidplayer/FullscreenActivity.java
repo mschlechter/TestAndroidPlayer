@@ -94,7 +94,7 @@ createViews();
 
 
             TranslateAnimation animation = new TranslateAnimation(1920, -1 * textWidth, 0, 0);
-            animation.setDuration(10000);
+            animation.setDuration(20000);
             animation.setRepeatMode(Animation.RESTART);
             animation.setRepeatCount(Animation.INFINITE);
 
