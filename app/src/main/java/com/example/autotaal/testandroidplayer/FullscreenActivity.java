@@ -4,13 +4,18 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.PowerManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 /**
@@ -34,16 +39,19 @@ public class FullscreenActivity extends Activity {
 
 createViews();
 
+        //PowerManager powerManager = (PowerManager)context
+
     }
 
     private void createViews()
     {
         try {
 
-            //Uri bla = Uri.parse("http://download.openbricks.org/sample/H264/big_buck_bunny_1080p_H264_AAC_25fps_7200K.MP4");
+            //
+            // Create video player
+            //
+
             Uri bla = Uri.parse("http://dump.autotaal.biz/bunny1080.mp4");
-            //Uri bla = Uri.parse("http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4");
-            //Uri bla = Uri.parse("http://192.168.168.116:8080/bunny1080.mp4");
 
             VideoView myVideoView = new VideoView(this);
             mainFrameLayout.addView(myVideoView);
@@ -60,6 +68,31 @@ createViews();
             });
 
             myVideoView.start();
+
+            //
+            // Add ticker tape
+            //
+
+            TextView text = new TextView(this);
+            mainFrameLayout.addView(text);
+
+            text.setText("Dit is een testbericht voor een tickertape in Android");
+
+            /*
+            text.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+            text.setMarqueeRepeatLimit(-1);
+            text.setSingleLine(true);
+            text.setHorizontallyScrolling(true);
+            */
+
+            //text.animate().x(1920).y(0);
+
+            TranslateAnimation animation = new TranslateAnimation(1920, -1920, 0, 0);
+            animation.setDuration(10000);
+            animation.setRepeatMode(Animation.RESTART);
+            animation.setRepeatCount(Animation.INFINITE);
+
+            text.setAnimation(animation);
 
         } catch (Exception e) {
             e.printStackTrace();
