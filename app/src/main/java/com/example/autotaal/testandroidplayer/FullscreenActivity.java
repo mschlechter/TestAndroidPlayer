@@ -87,7 +87,13 @@ createViews();
 
             //text.animate().x(1920).y(0);
 
-            TranslateAnimation animation = new TranslateAnimation(1920, -1920, 0, 0);
+            float textWidth = 0;
+
+            text.measure(0, 0);
+            textWidth = text.getMeasuredWidth();
+
+
+            TranslateAnimation animation = new TranslateAnimation(1920, -1 * textWidth, 0, 0);
             animation.setDuration(10000);
             animation.setRepeatMode(Animation.RESTART);
             animation.setRepeatCount(Animation.INFINITE);
